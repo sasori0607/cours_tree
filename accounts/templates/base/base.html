@@ -1,0 +1,60 @@
+{% load static %}
+{% load i18n  %}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="ru">
+  <head>
+    <title>
+        +
+    </title>
+    <meta name="description" content="+" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+    <meta name="google-site-verification" content="7CF8IWzWv3Q-CDei9XjzIUHWOMJQiKg0Zd2u1LQfQT8" />
+  </head>
+
+<body class="text-center">
+
+
+
+<div class="container" >
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'tree' %}" class="nav-link px-2">Дерево</a></li>
+        <li><a href="#" class="nav-link px-2">Курси</a></li>
+<!--        <li><a href="#" class="nav-link px-2">Pricing</a></li>-->
+<!--        <li><a href="#" class="nav-link px-2">FAQs</a></li>-->
+<!--        <li><a href="#" class="nav-link px-2">About</a></li>-->
+      </ul>
+
+      <div class="col-md-3 text-end">
+        {% if user.is_authenticated %}
+        <button type="button" class="btn btn-outline-primary me-2"><a href="{% url 'profile' %}" class="nav-link px-2">Кабінет</a></button>
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}" style="color:white;" class="nav-link px-2">Вихід</a></button>
+        {% else %}
+        <button type="button" class="btn btn-outline-primary me-2"><a href="{% url 'login' %}" class="nav-link px-2">Вхід</a></button>
+        <button type="button" class="btn btn-primary"><a href="{% url 'register' %}" style="color:white;" class="nav-link px-2">Реєстрація</a></button>
+        {% endif %}
+
+      </div>
+    </header>
+  </div>
+  {% block body %}
+  {% endblock %}
+  <script src="{% static 'base/js/script.js' %}"></script>
+
+  <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+
+
+
+</body>
+
+
+</html>

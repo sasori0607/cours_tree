@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+ <div class="main_section">
+
+    <main class=" ">
+  <form method="post" class="form-signin">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Авторизація</font></font></h1>
+  {% if form.errors %}
+    <p class="text-danger font-weight-bold">Ім'я користувача та/або пароль неправильно введено.</p>
+  {% endif %}
+
+    <div class="form_input">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+    <div class="form_input" >
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
+  <div class="">
+      <button class=" btn btn-lg btn-primary mt-2" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Увійти</font></font></button>
+  </div>
+
+    </form>
+  </main>
+
+ </div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

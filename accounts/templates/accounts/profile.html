@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-lg-4">
+        <img width="140" height="140" style=" rounded-circle"
+             src="{% static '/accounts/free-icon-bussiness-man-3048122.png' %}" alt="">
+
+        <h2 class="fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{user.username}}</font></font>
+        </h2>
+
+    </div>
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center col-lg-4">
+        <div class="list-group w-100">
+            <h3>My courses</h3>
+
+            {% for item in courses %}
+                {% if item.status == 'ST' %}
+
+                    <a href="{{item.course.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-info" aria-current="true">
+                        <div class="d-flex gap-2 w-100 justify-content-center">
+                            <div>
+                                <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{item.course.name}}</font></font>
+                                </h6>
+                                <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">{{ item.course.description|slice:":100" }}</font></font>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% elif item.status == 'CP' %}
+                    <a href="{{item.course.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-success" aria-current="true">
+                        <div class="d-flex gap-2 w-100 justify-content-center">
+                            <div>
+                                <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{item.course.name}}</font></font>
+                                </h6>
+                                <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">{{ item.course.description|slice:":100" }}</font></font>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% else %}
+                    <a href="{{item.course.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-danger" aria-current="true">
+                        <div class="d-flex gap-2 w-100 justify-content-center">
+                            <div>
+                                <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{item.course.name}}</font></font>
+                                </h6>
+                                <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">{{ item.course.description|slice:":100" }}</font></font>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center col-lg-4">
+        <div class="list-group w-100">
+            <h3>My Leafs</h3>
+
+            {% for item in leafs %}
+                {% if item.status == 'ST' %}
+
+                    <a href="{{item.leafs.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-info" aria-current="true">
+                        <div class="d-flex gap-2 w-100 justify-content-center">
+                            <div>
+                                <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{item.leafs.name}}</font></font>
+                                </h6>
+                                <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">{{ item.leafs.description|slice:":100" }}</font></font>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% elif item.status == 'CP' %}
+                    <a href="{{item.leafs.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-success" aria-current="true">
+                        <div class="d-flex gap-2 w-100 justify-content-center">
+                            <div>
+                                <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{item.leafs.name}}</font></font>
+                                </h6>
+                                <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">{{ item.leafs.description|slice:":100" }}</font></font>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% else %}
+                    <a href="{{item.course.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-danger" aria-current="true">
+                        <div class="d-flex gap-2 w-100 justify-content-center">
+                            <div>
+                                <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{item.leafs.name}}</font></font>
+                                </h6>
+                                <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">{{ item.leafs.description|slice:":100" }}</font></font>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

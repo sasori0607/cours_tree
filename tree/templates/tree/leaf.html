@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+<div class="container ">
+  <h1>{{leaf.name}}</h1>
+  <p style="text-align: start;">{{leaf.description|linebreaksbr}}</p>
+  <h5 style="text-align: start;">  Key points:</h5>
+  <div class="lists">
+    <ul>
+      {% for item in key_points %}
+      <li>{{item}}</li>
+      {% endfor %}
+
+    </ul>
+  </div>
+
+  <div class="row">
+      <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center col-md-6">
+        <div class="list-group w-100">
+          <h2>Prerequisites</h2>
+          {% for item in parent %}
+            <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+              <div class="d-flex gap-2 w-100 justify-content-center">
+                <div>
+                  <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.name }}</font></font></h6>
+                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.description|slice:":100"  }}</font></font></p>
+                </div>
+              </div>
+            </a>
+          {% empty %}
+            <h2>Sorry no Prerequisites</h2>
+          {% endfor %}
+
+
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center col-md-6">
+        <div class="list-group w-100">
+          <h2>Opens</h2>
+          {% for item in children %}
+            <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+              <div class="d-flex gap-2 w-100 justify-content-center">
+                <div>
+                  <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.name }}</font></font></h6>
+                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.description|slice:":100"  }}</font></font></p>
+                </div>
+              </div>
+            </a>
+          {% empty %}
+            <h2>Sorry no Opens</h2>
+          {% endfor %}
+
+
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center col-md-6">
+        <div class="list-group w-100">
+          <h2>Courses to study</h2>
+          {% for course in courses %}
+            <a href="{{ course.get_absolute_url }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+              <div class="d-flex gap-2 w-100 justify-content-center">
+                <div>
+                  <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ course.name }}</font></font></h6>
+                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ course.description|slice:":100"  }}</font></font></p>
+                </div>
+              </div>
+            </a>
+          {% empty %}
+            <h2>Sorry no courses</h2>
+          {% endfor %}
+
+
+        </div>
+      </div>
+  </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

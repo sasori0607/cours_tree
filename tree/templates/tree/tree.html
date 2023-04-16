@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+{% if user_leafs %}
+<script>
+let user_leafs = {{user_leafs}}
+</script>
+{% else %}
+<script>
+let user_leafs = [];
+</script>
+{% endif %}
+
+<div id="tree"></div>
+
+
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<div id="body"></div>
+
+<script>
+root = {{ data_for_d3|safe }}
+
+</script>
+<script src="{% static 'base/js/tree.js' %}"></script>
+
+
+{% endblock %}

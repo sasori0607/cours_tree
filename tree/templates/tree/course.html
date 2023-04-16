@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container ">
+  <h1>{{course.name}}</h1>
+  <p style="text-align: start;">{{course.description|linebreaksbr}}</p>
+  <h5 style="text-align: start;">Leaves inside:</h5>
+  <div class="lists">
+    <ul>
+      {% for item in course.leafs.all %}
+      <li><a style="color: black;" href="{{item.get_absolute_url}}">{{item}}</a></li>
+      {% endfor %}
+
+    </ul>
+  </div>
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}
