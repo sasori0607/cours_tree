@@ -76,14 +76,15 @@ function update(source) {
         .attr("height", rectH)
         .attr("stroke", "black")
         .attr("stroke-width", 1)
-        .style("fill", function (d) {
-        return d._children ? "lightsteelblue" : "#fff";
-    });
+//        .style("fill", function (d) {
+//        return d._children ? "lightsteelblue" : "#fff";
+//    });
+
 
 
 
     nodeEnter.append("a")
-    .attr("xlink:href", function (d)  { return "/leafs/" + d.id; })
+    .attr("xlink:href", function (d)  { return "/tree/" + d.id; })
     .append("text")
     .attr("x", rectW / 2)
     .attr("y", rectH / 2)
@@ -143,9 +144,13 @@ function update(source) {
         .attr("height", rectH)
         .attr("stroke", "black")
         .attr("stroke-width", 1)
-        .style("fill", function (d) {
-        return d._children ? "lightsteelblue" : "#fff";
-    });
+//        .style("fill", function (d) {
+//        return d._children ? "lightsteelblue" : "#fff";
+//    });
+
+
+
+
 
     nodeUpdate.select("text")
         .style("fill-opacity", 1);
@@ -239,7 +244,7 @@ function redraw() {
 }
 
 
-
+checkLinks()
 
 
 
@@ -249,16 +254,16 @@ function redraw() {
 
 function checkLinks() {
   d3.selectAll('.node').each(function(d) {
-  console.log('123')
     var link = d3.select(this).select('a').attr('xlink:href');
-    console.log(link)
     if (link) {
-    console.log('+')
-      var id = link.split('/').pop();
-      if (user_leafs.includes(id)) {
-        d3.select(this).select('rect').style('fill', 'green!important');
-      } else {
-        d3.select(this).select('rect').style('fill', 'white!important');
+
+      var id = parseInt(link.split('/').pop());
+      if (user_leafs_start.includes(id)) {
+        d3.select(this).select('rect').style('fill', 'green').attr("rx", 20).attr("ry", 20);
+      } else if (user_leafs_passed.includes(id)) {
+        d3.select(this).select('rect').style('fill', 'blue').attr("rx", 20).attr("ry", 20);
+      }else {
+        d3.select(this).select('rect').style('fill', 'white').attr("rx", 20).attr("ry", 20);
       }
     }
   });

@@ -14,13 +14,16 @@
 
 
 {% block body %}
-{% if user_leafs %}
+{% if user_leafs_start or user_leafs_passed %}
 <script>
-let user_leafs = {{user_leafs}}
+
+let user_leafs_start = {{user_leafs_start}}
+let user_leafs_passed = {{user_leafs_passed}}
 </script>
 {% else %}
 <script>
-let user_leafs = [];
+let user_leafs_start = [];
+let user_leafs_passed = [];
 </script>
 {% endif %}
 

@@ -53,7 +53,7 @@ class UserCourses(models.Model):
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=STARTED)
 
     class Meta:
         constraints = [
@@ -69,10 +69,11 @@ class UserLeaf(models.Model):
         (STARTED, 'Начат'),
         (COMPLETED, 'Закончен'),
         (REJECTED, 'Отказано')
+
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     leafs = models.ForeignKey(Leaf, on_delete=models.SET_NULL, null=True, blank=True)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=STARTED)
 
     class Meta:
         constraints = [
