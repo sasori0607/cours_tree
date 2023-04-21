@@ -17,7 +17,7 @@
 
 <div class="main_section">
 
-  <h2>реєстрація</h2>
+  <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Registration</font></font></h1>
   <main class=" ">
     <form method="post">
     {% csrf_token %}
@@ -26,32 +26,29 @@
       <p class="text-danger font-weight-bold">{{form.errors}}</p>
     {% endif %}
     <div class="form_input">
-      <label for="{{ form.username.id_for_label }}">логін</label>
+      <label for="{{ form.username.id_for_label }}">login</label>
       {{ form.username }}
     </div>
     <div class="form_input">
-      <label for="{{ form.email.id_for_label }}">пошта</label>
-      {{ form.email }}
-    </div>
-    <div class="form_input">
-      <label for="{{ form.password1.id_for_label }}">пароль</label>
+      <label for="{{ form.password1.id_for_label }}">password</label>
       {{ form.password1 }}
     </div>
     <div class="form_input">
-      <label for="{{ form.password2.id_for_label }}">пароль знову</label>
+      <label for="{{ form.password2.id_for_label }}">re password</label>
       {{ form.password2 }}
     </div>
     <div class="form_input">
-      <label for="{{ form.first_name.id_for_label }}">ім'я</label>
-      {{ form.first_name }}
+      <label for="{{ form.email.id_for_label }}">email</label>
+      {{ form.email }}
     </div>
+
     <div class="form_input">
-      <label for="{{ form.last_name.id_for_label }}">прізвище</label>
-      {{ form.last_name }}
+      <label for="{{ form.gradation.id_for_label }}">gradation</label>
+      {{ form.gradation }}
     </div>
 
     <div style="margin-top:20px;">
-      <button type="submit">Register</button>
+      <button class="btn btn-lg btn-primary mt-2" type="submit">Register</button>
     </div>
   </form>
   </main>

@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container ">
+    <h1>Our courses</h1>
+    {% for item in courses %}
+
+        <a href="{{item.get_absolute_url}}" class="list-group-item list-group-item-action d-flex gap-3 py-3 courses-items" aria-current="true" >
+            <div class="d-flex gap-2 w-100 ">
+                <div>
+                    <h6 class="mb-0" style="text-align: start;"><font style="vertical-align: inherit; "><font style="vertical-align: inherit; ">{{item.name}}</font></font>
+                    </h6>
+                    <p class="mb-0 opacity-75" style="text-align: start;">{{ item.author|slice:":100" }}
+                    </p>
+                </div>
+            </div>
+        </a>
+
+
+    {% endfor %}
+
+
+</div>
+
+
+{% endblock %}

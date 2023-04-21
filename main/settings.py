@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-o5ed=fb#&pht)0ps65nv*4pfe_u-_^utk%ty=#=p+9=)a*l+lu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ["https://localhost:4444", "http://localhost:4444", "http://127.0.0.1:8000/"]
+CSRF_TRUSTED_ORIGINS = ["http://46.175.149.43:4444", "https://46.175.149.43:4444", "http://127.0.0.1:8000/"]
 
 LOGIN_URL = '/accounts/'
 LOGOUT_REDIRECT_URL = '/'

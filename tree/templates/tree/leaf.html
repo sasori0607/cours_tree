@@ -15,13 +15,46 @@
 
 {% block body %}
 <div class="container ">
-  <h1>{{leaf.name}}</h1>
+  <div class="row">
+      <h1 class="col-md-7">{{leaf.name}}</h1>
+      <div class="col-md-5" >
+           {% if user.gradation == 'student' %}
+            {% if user_leaf.status == 4 %}
+            <div class="" >
+              <form class="m-1" id="change-swap-form">
+                {% csrf_token %}
+                <select class="form-select" style="width:auto;" name="{{ comment_form.status.name }}" {% if not user_can_edit %}{% endif %}>
+                  {% for value, label in comment_form.status.field.choices %}
+                  <option value="{{ value }}" {% if value == comment_form.status.value %}selected{% endif %} {% if  value == 4 %}disabled{% endif %}>{{ label }} </option>
+                  {% endfor %}
+                </select>
+              </form>
+            </div>
+            {% else %}
+            <div class="" >
+              <form class="m-1" id="change-swap-form">
+                {% csrf_token %}
+                <select class="form-select" style="width:auto;" name="{{ comment_form.status.name }}" {% if not user_can_edit %}{% endif %}>
+                  {% for value, label in comment_form.status.field.choices %}
+                  <option value="{{ value }}" {% if value == comment_form.status.value %}selected{% endif %} {% if value == 4 %}disabled{% endif %}>{{ label }} </option>
+                  {% endfor %}
+                </select>
+                <button style="margin-left:10px;" class="btn btn-primary" type="submit">Update status</button>
+              </form>
+            </div>
+            {% endif %}
+           {% endif %}
+          </div>
+
+
+  </div>
+  <h4 class="col-md-7">{{leaf.type}}</h4>
   <p style="text-align: start;">{{leaf.description|linebreaksbr}}</p>
   <h5 style="text-align: start;">  Key points:</h5>
   <div class="lists">
     <ul>
       {% for item in key_points %}
-      <li>{{item}}</li>
+      <li>{{item.text}}</li>
       {% endfor %}
 
     </ul>
@@ -36,7 +69,7 @@
               <div class="d-flex gap-2 w-100 justify-content-center">
                 <div>
                   <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.name }}</font></font></h6>
-                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.description|slice:":100"  }}</font></font></p>
+                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.type|slice:":100"  }}</font></font></p>
                 </div>
               </div>
             </a>
@@ -55,7 +88,7 @@
               <div class="d-flex gap-2 w-100 justify-content-center">
                 <div>
                   <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.name }}</font></font></h6>
-                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.description|slice:":100"  }}</font></font></p>
+                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ item.type|slice:":100"  }}</font></font></p>
                 </div>
               </div>
             </a>
@@ -77,7 +110,6 @@
               <div class="d-flex gap-2 w-100 justify-content-center">
                 <div>
                   <h6 class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ course.name }}</font></font></h6>
-                  <p class="mb-0 opacity-75"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ course.description|slice:":100"  }}</font></font></p>
                 </div>
               </div>
             </a>
@@ -93,6 +125,35 @@
 
 
 </div>
+<script>
+ var user_id = "{{ user.id }}"
+ var leaf_id = "{{leaf.id}}"
+
+
+</script>
+
+<script>
+root = {{ data_for_d3|safe }}
+
+  $('#change-swap-form').on('submit', function(event) {
+    event.preventDefault();  // Отменить обычную отправку формы
+
+    // Отправить AJAX-запрос на сервер
+    $.ajax({
+      url: '{% url "update_status" user_leaf.id %}',
+      type: 'POST',
+      data: $('#change-swap-form').serialize(),
+      success: function(response) {
+        // Обработать ответ, например, обновить страницу
+        location.reload();
+      },
+      error: function() {
+        alert('Ошибка отправки формы');
+      }
+    });
+  });
+
+</script>
 
 
 

@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ seo.title }}
+{% endblock %}
+
+{% block description %}
+{{ seo.description }}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+{% if user.gradation == "teacher" %}
+
+<div class="container">
+    <div class="table">
+        <div class="table-row">
+            <div class="name vertical-text">Name</div>
+            {% for i in  leafs %}
+                <div class="checkpoint vertical-text">{{ i.name }}  </div>
+            {% endfor %}
+
+        </div>
+
+        {% for key, value in magic_dict.items|slice:"1" %}
+            <div class="table-row">
+                <div class="name">{{ key }}</div>
+                {% for i in  value %}
+                    {% if i.status ==  3 or i.status == 4 %}
+
+                        <div class="checkpoint">
+                            <input class="form-check-input" type="checkbox" value="{{ i.id }}" checked>
+                        </div>
+                    {% else %}
+                        <div class="checkpoint">
+                            <input class="form-check-input" type="checkbox" value="{{ i.id }}">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="">
+                    <button type="button" style="background:green;" name="complitle" value="{{key.id}}" class="btn m-btn ">complitle</button>
+                </div>
+                <div class="">
+                    <button class="btn m-btn" style="background:red;" name="refusal"  value="{{key.id}}" >refusal</button>
+                </div>
+             </div>
+        {% endfor %}
+
+    </div>
+
+
+</div>
+
+{% endif %}
+
+{% endblock %}

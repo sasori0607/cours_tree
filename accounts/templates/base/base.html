@@ -5,7 +5,7 @@
 <html class="wide wow-animation" lang="ru">
   <head>
     <title>
-        +
+          Courses Tree
     </title>
     <meta name="description" content="+" />
     <meta charset="utf-8">
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'base/css/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="google-site-verification" content="7CF8IWzWv3Q-CDei9XjzIUHWOMJQiKg0Zd2u1LQfQT8" />
   </head>
 
@@ -27,20 +28,17 @@
 
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{% url 'tree' %}" class="nav-link px-2">Дерево</a></li>
-        <li><a href="#" class="nav-link px-2">Курси</a></li>
-<!--        <li><a href="#" class="nav-link px-2">Pricing</a></li>-->
-<!--        <li><a href="#" class="nav-link px-2">FAQs</a></li>-->
-<!--        <li><a href="#" class="nav-link px-2">About</a></li>-->
+        <li><a href="{% url 'tree' %}" class="nav-link px-2">Tree</a></li>
+        <li><a href="{% url 'courses' %}" class="nav-link px-2">Courses</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
         {% if user.is_authenticated %}
-        <button type="button" class="btn btn-outline-primary me-2"><a href="{% url 'profile' %}" class="nav-link px-2">Кабінет</a></button>
-        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}" style="color:white;" class="nav-link px-2">Вихід</a></button>
+        <button type="button" class="btn btn-outline-primary me-2"><a href="{% url 'profile' %}" class="nav-link px-2">Office</a></button>
+        <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}" style="color:white;" class="nav-link px-2">Exit</a></button>
         {% else %}
-        <button type="button" class="btn btn-outline-primary me-2"><a href="{% url 'login' %}" class="nav-link px-2">Вхід</a></button>
-        <button type="button" class="btn btn-primary"><a href="{% url 'register' %}" style="color:white;" class="nav-link px-2">Реєстрація</a></button>
+        <button type="button" class="btn btn-outline-primary me-2"><a href="{% url 'login' %}" class="nav-link px-2">Entrance</a></button>
+        <button type="button" class="btn btn-primary"><a href="{% url 'register' %}" style="color:white;" class="nav-link px-2">Registration</a></button>
         {% endif %}
 
       </div>
