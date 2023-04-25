@@ -22,10 +22,22 @@ def process_node(data, node):
 def format_tree_data(data):
     # находим корневой элемент, то есть элемент без родителя
     root = next((item for item in data if item.parent_id is None), None)
-    print(root)
     # обрабатываем корневой элемент и все его дочерние элементы
     return process_node(data, root)
 
+
+def get_leaves_without_children(data):
+    leaves_without_children = []
+    if not isinstance(data, dict):
+        return leaves_without_children
+
+    if not data.get('children'):
+        leaves_without_children.append(data['id'])
+    else:
+        for child in data['children']:
+            leaves_without_children.extend(get_leaves_without_children(child))
+
+    return leaves_without_children
 
 class TreeBranchView(ListView):
     template_name = 'tree/tree.html'
@@ -37,13 +49,13 @@ class TreeBranchView(ListView):
         leafs = self.model.objects.all()
         url = self.request.build_absolute_uri()
         clean_url = urlparse(url)._replace(query=None).geturl()
-        print(len(clean_url.split('/')), clean_url)
         if len(clean_url.split('/')) > 4:
             tree_data = process_node(leafs, leafs.filter(id=clean_url.split('/')[-2])[0])
             root_leaf_info = leafs.filter(id=clean_url.split('/')[-2])[0]
         else:
             tree_data = format_tree_data(leafs)
             root_leaf_info = leafs.filter(parent=None)[0]
+        ctx['get_leaves_without_children'] = get_leaves_without_children(tree_data)
         ctx['data_for_d3'] = tree_data
         ctx["user_leafs_start"] = []
         ctx["user_leafs_passed"] = []
@@ -51,7 +63,7 @@ class TreeBranchView(ListView):
 
         if self.request.user.is_authenticated:
             user_leafs = UserLeaf.objects.all()
-            all_leafs = Leaf.objects.all()
+
             ctx["NOT_INTERESTED"] = list(
                 user_leafs.filter(user=self.request.user, status=5).values_list('leafs_id', flat=True))
             ctx["INTERESTED"] = list(
@@ -62,12 +74,14 @@ class TreeBranchView(ListView):
                 user_leafs.filter(user=self.request.user, status=3).values_list('leafs_id', flat=True))
             ctx["VALIDATED"] = list(
                 user_leafs.filter(user=self.request.user, status=4).values_list('leafs_id', flat=True))
-            ctx["THEORY"] = list(
-                all_leafs.filter(type='THEORY').values_list('id', flat=True))
-            ctx["PRACTICE"] = list(
-                all_leafs.filter(type='PRACTICE').values_list('id', flat=True))
-            ctx["PROJECT"] = list(
-                all_leafs.filter(type='PROJECT').values_list('id', flat=True))
+        all_leafs = Leaf.objects.all()
+        ctx["THEORY"] = list(
+            all_leafs.filter(type='THEORY').values_list('id', flat=True))
+        ctx["PRACTICE"] = list(
+            all_leafs.filter(type='PRACTICE').values_list('id', flat=True))
+        ctx["PROJECT"] = list(
+            all_leafs.filter(type='PROJECT').values_list('id', flat=True))
+
 
         leaf = leafs.filter(id=root_leaf_info.id)[0]
         key_points = LeafKeypoint.objects.all().filter(leaf=leaf)

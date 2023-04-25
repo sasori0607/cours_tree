@@ -118,6 +118,7 @@ class UserLeaf(models.Model):
     leafs = models.ForeignKey(Leaf, on_delete=models.SET_NULL, null=True, blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=NOT_INTERESTED)
 
+
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'leafs'], name='unique_user_leaf'),

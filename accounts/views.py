@@ -32,15 +32,30 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         user = CustomUser.objects.filter(username=self.request.user)[0]
         ctx["user"] = user
         if user.gradation == "student":
-            sort_by = self.request.GET.get('sort_by', 'name')  # по умолчанию сортируем по названию
-            sort_order = self.request.GET.get('sort_order', 'asc')  # по умолчанию сортируем по возрастанию
+            leafs_sort_by = self.request.GET.get('leafs_sort_by', 'leafs')
+            leafs_sort_order = self.request.GET.get('leafs_sort_order', 'asc')
+            courses_sort_by = self.request.GET.get('courses_sort_by', 'course')
+            courses_sort_order = self.request.GET.get('courses_sort_order', 'asc')
 
             courses = UserCourses.objects.filter(user=self.request.user).order_by(
-                f'course__{sort_by}'
+                f'{courses_sort_by}'
             )
+            if courses_sort_order == 'desc':
+                courses = courses.reverse()
+            ctx["courses_sort_by"] = courses_sort_by
+            ctx["courses_sort_order"] = courses_sort_order
+            print(leafs_sort_by)
+            leafs = UserLeaf.objects.filter(user=self.request.user).order_by(
+                f'{leafs_sort_by}'
+            )
+            if leafs_sort_order == 'desc':
+                leafs = leafs.reverse()
+            ctx["leafs_sort_by"] = leafs_sort_by
+            ctx["leafs_sort_order"] = leafs_sort_order
+
 
             ctx["courses"] = courses
-            ctx["leafs"] = UserLeaf.objects.filter(user=self.request.user).order_by('status')
+            ctx["leafs"] = leafs
         else:
             courses = Course.objects.filter(author=user)
             ctx["courses"] = courses

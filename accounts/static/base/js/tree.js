@@ -24,7 +24,9 @@ var screenWidth  = window.innerWidth;
 var ElBodyWidth = $('#body').width()
 var svg = d3.select("#body").append("svg").attr("width","100%").attr("height", 1000)
     .call(zm = d3.behavior.zoom().scaleExtent([1,3]).on("zoom", redraw)).append("g")
-    .attr("transform", "translate(" + ElBodyWidth/2 + "," + 100 + ")");
+    .attr("transform", "translate(" + ElBodyWidth/2 + "," + 100 + ")")
+
+
 
 //necessary so that zoom knows where to zoom and unzoom from
 zm.translate([ElBodyWidth/2, 100]);
@@ -73,8 +75,9 @@ function update(source) {
     nodeEnter.append("rect")
         .attr("width", rectW)
         .attr("height", rectH)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
+        .attr("stroke", "#3baaff")
+        .attr("stroke-width", 2)
+
 //        .style("fill", function (d) {
 //        return d._children ? "lightsteelblue" : "#fff";
 //    });
@@ -90,6 +93,7 @@ function update(source) {
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
     .attr("transform", "translate(" + rectW / 2 + "," + 0 + ")")
+
     .text(function (d) {
         return d.name;
     })
@@ -128,6 +132,8 @@ function update(source) {
       }
     }
   });
+
+
 }
 
 
@@ -141,9 +147,9 @@ function update(source) {
     nodeUpdate.select("rect")
         .attr("width", rectW)
         .attr("height", rectH)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
-//        .style("fill", function (d) {
+//        .attr("stroke", "#3baaff")
+//        .attr("stroke-width", 2)
+//        .style("stroke", function (d) {
 //        return d._children ? "lightsteelblue" : "#fff";
 //    });
 
@@ -167,8 +173,9 @@ function update(source) {
         .attr("height", rectH)
     //.attr("width", bbox.getBBox().width)""
     //.attr("height", bbox.getBBox().height)
-    .attr("stroke", "black")
-        .attr("stroke-width", 1);
+//        .attr("stroke", "black")
+
+
 
     nodeExit.select("text");
 
@@ -236,7 +243,6 @@ function click(d) {
 
 //Redraw for zoom
 function redraw() {
-  //console.log("here", d3.event.translate, d3.event.scale);
   svg.attr("transform",
       "translate(" + d3.event.translate + ")"
       + " scale(" + d3.event.scale + ")");
@@ -276,6 +282,11 @@ function checkLinks() {
       }else {
         d3.select(this).select('rect').attr("rx", 20)
       }
+
+      if (get_leaves_without_children.includes(id)){
+        d3.select(this).select('rect').attr("stroke", "black").attr("stroke-width", 1.5)
+      }
+
 
     }
   });

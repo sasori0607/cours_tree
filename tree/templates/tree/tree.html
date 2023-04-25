@@ -22,10 +22,6 @@ let INTERESTED = {{INTERESTED}}
 let LEARNING = {{LEARNING}}
 let LEARNED = {{LEARNED}}
 let VALIDATED = {{VALIDATED}}
-let THEORY = {{THEORY}}
-let PRACTICE = {{PRACTICE}}
-let PROJECT = {{PROJECT}}
-console.log(THEORY)
 
 </script>
 {% else %}
@@ -35,10 +31,6 @@ let LEARNING = [];
 let VALIDATED = [];
 let LEARNED = [];
 let NOT_INTERESTED = [];
-let THEORY = []
-let PRACTICE = []
-let PROJECT = []
-console.log(THEORY)
 </script>
 {% endif %}
 
@@ -165,6 +157,10 @@ console.log(THEORY)
 
 <script>
 root = {{ data_for_d3|safe }}
+let THEORY = {{THEORY}}
+let PRACTICE = {{PRACTICE}}
+let PROJECT = {{PROJECT}}
+let get_leaves_without_children = {{get_leaves_without_children}}
 
   $('#change-swap-form').on('submit', function(event) {
     event.preventDefault();  // Отменить обычную отправку формы
